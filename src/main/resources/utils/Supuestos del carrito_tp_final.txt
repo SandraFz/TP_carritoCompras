@@ -1,0 +1,19 @@
+Supuestos del carrito_tp_final
+
+No son necesarios los atributos de subcategorías ni la foto.
+
+Categoría: lácteoas, carnes, limpieza, electrodomésticos, hogar, panadería, verduras y frutas, legumbres?
+
+Descripción: en bolsa, en caja.
+
+Precio de referrencia app de día
+
+Unidad en gramos.
+
+Tipo: perecedero/no perecedero.
+
+Sugiere relaciones 1-1.
+
+Opción 1: generar una consulta pedidos precio *cantidad, deben tener en cuenta cómo trabajar para calcular el monto total. Aregar un atributo.
+
+La foto puede ser una genérica tipo: "imagen no desponible".
