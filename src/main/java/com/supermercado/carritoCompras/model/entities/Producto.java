@@ -18,8 +18,8 @@ public class Producto {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @Column(name="id_producto", nullable = false, length = 4)
-    private Long id_producto;
+    @Column(name="id", nullable = false, length = 4)
+    private Long id;
 
     @Column(name="genero", nullable = false, length = 15)
     private Genero genero;

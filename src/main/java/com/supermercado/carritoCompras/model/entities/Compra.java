@@ -18,8 +18,8 @@ public class Compra {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id_compra")
-    private Long id_compra;
+    @Column(name="id")
+    private Long id;
 
     @Column(name="fecha_compra")
     private Date fecha;

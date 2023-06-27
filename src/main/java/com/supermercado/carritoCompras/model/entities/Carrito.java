@@ -16,8 +16,8 @@ public class Carrito {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id_carrito")
-    private Long carrito;
+    @Column(name="id")
+    private Long id;
 
     @OneToOne(mappedBy = "carrito")
     private Cliente cliente;
