@@ -12,6 +12,7 @@ public class ClienteMapper {
         Cliente cli = new Cliente();
 
         cli.setId(cliDto.getId());
+        cli.setDni(cliDto.getDni());
         cli.setNombre(cliDto.getNombre());
         cli.setCarrito(cliDto.getCarrito());
         cli.setCompras(cliDto.getCompras());
@@ -24,6 +25,7 @@ public class ClienteMapper {
         ClienteDTO cliDto = new ClienteDTO();
 
         cliDto.setId(cli.getId());
+        cliDto.setDni(cli.getDni());
         cliDto.setNombre(cli.getNombre());
         cliDto.setCarrito(cli.getCarrito());
         cliDto.setCompras(cli.getCompras());

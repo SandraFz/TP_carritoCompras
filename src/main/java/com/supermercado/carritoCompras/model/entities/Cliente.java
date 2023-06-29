@@ -21,6 +21,9 @@ public class Cliente {
             length = 4)
     private Long id;
 
+    @Column(name="dni")
+    private String dni;
+
     @Column(name="nombre",
             nullable = false,
             length = 30)

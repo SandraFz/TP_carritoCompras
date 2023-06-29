@@ -18,6 +18,9 @@ public class ClienteDTO {
 
     @NotNull
     private Long id;
+
+    @NotNull
+    private String dni;
     @NotNull
     private String nombre;
     @NotNull
