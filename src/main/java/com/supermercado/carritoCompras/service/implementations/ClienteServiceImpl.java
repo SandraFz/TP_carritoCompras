@@ -7,7 +7,6 @@ import com.supermercado.carritoCompras.service.interfaces.IClienteService;
 import com.supermercado.carritoCompras.service.repositories.IClienteRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -27,15 +26,15 @@ public class ClienteServiceImpl implements IClienteService{
     @Transactional
     public ClienteDTO newCliente(ClienteDTO cliDto) {
 
-        Cliente cli = new Cliente();
+        Cliente cli;
 
-        if(!repo.existsByDni(cliDto.getDni())) {
+        if(repo.existsByDni(cliDto.getDni())) {
             throw new RuntimeException("El cliente ya existe");
-        }
+        } else {
         cli = mapper.dtoToClientRequest(cliDto);
         repo.save(cli);
-        ClienteDTO newcliDTo = mapper.clientToDtoResponse(cli);
-        return newcliDTo;
+        ClienteDTO newCliDTo = mapper.clientToDtoResponse(cli);
+        return newCliDTo;}
     }
 
     @Override
@@ -51,23 +50,38 @@ public class ClienteServiceImpl implements IClienteService{
     }
 
     @Override
+    public ClienteDTO findById(Long id){
+
+        Cliente cli = repo.getById(id);
+        ClienteDTO cliDto = mapper.clientToDtoResponse(cli);
+        return cliDto;
+    }
+
+    @Override
     public ClienteDTO findByDni(String dni) {
 
-        Cliente cliDto = new Cliente();
+        Cliente cli;
         cli = repo.findCliente(dni);
-        mapper.dtoToClientRequest()
-
+        ClienteDTO cliDto = mapper.clientToDtoResponse(cli);
 
         return cliDto;
     }
 
     @Override
-    public ClienteDTO editCliente(ClienteDTO cliDto) {
-        return null;
+    @Transactional
+    public ClienteDTO editCliente(ClienteDTO cliDto, String dni) {
+
+        Cliente cli = mapper.dtoToClientRequest(findByDni(dni));
+        Cliente newCli = mapper.dtoToClientRequest(cliDto);
+        repo.saveAndFlush(newCli);
+        ClienteDTO newCliDto = mapper.clientToDtoResponse(newCli);
+
+        return newCliDto;
     }
 
     @Override
     public void deleteCliente(Long id) {
 
+        repo.deleteById(id);
     }
 }

@@ -8,6 +8,6 @@ import org.springframework.data.jpa.repository.Query;
 public interface IClienteRepository extends JpaRepository<Cliente, Long> {
 
     Boolean existsByDni(String dni);
-    @Query(value = "SELECT * FROM productos WHERE nombre = :dni", nativeQuery = true)
-    public ClienteDTO findCliente(String dni);
+    @Query(value = "SELECT * FROM clientes WHERE dni = :dni", nativeQuery = true)
+    public Cliente findCliente(String dni);
 }

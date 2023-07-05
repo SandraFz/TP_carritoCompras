@@ -16,15 +16,15 @@ import java.util.List;
 @NoArgsConstructor
 public class ClienteDTO {
 
-    @NotNull
+    //@NotNull
     private Long id;
 
-    @NotNull
+    //@NotNull
     private String dni;
-    @NotNull
+    //@NotNull
     private String nombre;
-    @NotNull
+    //@NotNull
     private Carrito carrito;
-    @NotNull
+    //@NotNull
     private List<Compra> compras;
 }
