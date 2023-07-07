@@ -1,9 +1,13 @@
 package com.supermercado.carritoCompras.service.implementations;
 
+import com.supermercado.carritoCompras.model.DTO.CarritoDTO;
 import com.supermercado.carritoCompras.model.DTO.ClienteDTO;
+import com.supermercado.carritoCompras.model.entities.Carrito;
 import com.supermercado.carritoCompras.model.entities.Cliente;
+import com.supermercado.carritoCompras.model.mapper.CarritoMapper;
 import com.supermercado.carritoCompras.model.mapper.ClienteMapper;
 import com.supermercado.carritoCompras.service.interfaces.IClienteService;
+import com.supermercado.carritoCompras.service.repositories.ICarritoRepository;
 import com.supermercado.carritoCompras.service.repositories.IClienteRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +25,12 @@ public class ClienteServiceImpl implements IClienteService{
     @Autowired
     public ClienteMapper mapper;
 
+    @Autowired
+    public CarritoServImpl carServ;
+
+    @Autowired
+    public CarritoMapper carMapper;
+
 
     @Override
     @Transactional
@@ -33,6 +43,15 @@ public class ClienteServiceImpl implements IClienteService{
         } else {
         cli = mapper.dtoToClientRequest(cliDto);
         repo.save(cli);
+
+        /*Desde aquí inserto el código para crear automáticamente un carrito único por cliente*/
+            Long idCli = cli.getId();
+            CarritoDTO carDto = carServ.crearCarrito(idCli);
+            Carrito newCar = carMapper.dtoToCarRequest(carDto);
+            cli.setCarrito(newCar);
+            repo.saveAndFlush(cli);
+            /*Hasta aquí*/
+
         ClienteDTO newCliDTo = mapper.clientToDtoResponse(cli);
         return newCliDTo;}
     }

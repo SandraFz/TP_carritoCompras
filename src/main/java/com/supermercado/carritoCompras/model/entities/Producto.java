@@ -32,7 +32,15 @@ public class Producto {
 
     @Column(name="precio", nullable = false)
     private int precio;
-
-    /*@ManyToMany(mappedBy = "productos")
-    private List<Compra> compras;*/
 }
+/*Métodos:
+* Agregar producto;
+* Listar todos los productos;
+* Buscar productos por nombre;
+* Buscar productos por categoría;
+* Buscar productos por familia;
+* Editar producto;
+* Eliminar producto;
+* Sunar unidades/ actualizar stock;
+* Restar unidades/ actualizar stock;
+*  */

@@ -13,7 +13,8 @@ public class CarritoMapper {
 
         car.setId(carDto.getId());
         car.setCliente(carDto.getCliente());
-        car.setCompras(carDto.getCompras());
+        car.setReferencias(carDto.getReferencias());
+        car.setTotal(carDto.getTotal());
 
         return car;
     }
@@ -24,7 +25,8 @@ public class CarritoMapper {
 
         carDto.setId(car.getId());
         carDto.setCliente(car.getCliente());
-        carDto.setCompras(car.getCompras());
+        carDto.setReferencias(car.getReferencias());
+        carDto.setTotal(car.getTotal());
 
         return carDto;
     }

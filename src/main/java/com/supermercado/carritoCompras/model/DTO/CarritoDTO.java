@@ -2,6 +2,7 @@ package com.supermercado.carritoCompras.model.DTO;
 
 import com.supermercado.carritoCompras.model.entities.Cliente;
 import com.supermercado.carritoCompras.model.entities.Compra;
+import com.supermercado.carritoCompras.model.entities.Referencia;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,13 +15,13 @@ import java.util.List;
 @NoArgsConstructor
 public class CarritoDTO {
 
-    @NotNull
+    //@NotNull
     private Long id;
 
-    @NotNull
+    //@NotNull
     private Cliente cliente;
 
-    @NotNull
-    private List<Compra> compras;
+    private List<Referencia> referencias;
 
+    private double total;
 }

@@ -29,12 +29,16 @@ public class Compra {
     @JoinColumn(name = "cliente")
     private Cliente cliente;
 
-    @ManyToOne
-    @JoinColumn(name = "carrito")
-    private Carrito carrito;
-
     @ManyToMany(fetch = FetchType.LAZY,
                 cascade = CascadeType.ALL)//https://docs.oracle.com/javaee/6/api/javax/persistence/ManyToMany.html
     @JoinTable(name="productos_comprados")
-    private List<Producto> productos;
+    private List<Referencia> referencias;
 }
+
+/*Métodos:
+* Crear compra;
+* Buscar según número;
+* Buscar por fecha/Fecha actual por default;
+* Buscar por monto/Monto por defaoult;
+* Buscar por rango/Rango por default;
+* */

@@ -20,6 +20,7 @@ public class ClienteController {
     public ResponseEntity<ClienteDTO> newCliente(@RequestBody ClienteDTO cliDto){
 
         ClienteDTO cli = serv.newCliente(cliDto);
+        //CarritoDTO car = serCar.newCarrito();
         return ResponseEntity.ok().body(cli);
     }
 
