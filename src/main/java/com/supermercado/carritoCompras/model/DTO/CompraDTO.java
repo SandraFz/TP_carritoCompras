@@ -26,7 +26,7 @@ public class CompraDTO {
     private Cliente cliente;
 
     @NotNull
-    private Carrito carrito;
+    private String detalle;
 
     @NotNull
     private List<Producto> productos;

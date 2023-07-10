@@ -47,10 +47,6 @@ public class ClienteServiceImpl implements IClienteService{
         /*Desde aquí inserto el código para crear automáticamente un carrito único por cliente*/
             Long idCli = cli.getId();
             CarritoDTO carDto = carServ.crearCarrito(idCli);
-            Carrito newCar = carMapper.dtoToCarRequest(carDto);
-            cli.setCarrito(newCar);
-            repo.saveAndFlush(cli);
-            /*Hasta aquí*/
 
         ClienteDTO newCliDTo = mapper.clientToDtoResponse(cli);
         return newCliDTo;}

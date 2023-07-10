@@ -2,7 +2,9 @@ package com.supermercado.carritoCompras.model.mapper;
 
 import com.supermercado.carritoCompras.model.DTO.ReferenciaDTO;
 import com.supermercado.carritoCompras.model.entities.Referencia;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ReferenciaMapper {
 
     public Referencia dtoToReferencia (ReferenciaDTO refDto){

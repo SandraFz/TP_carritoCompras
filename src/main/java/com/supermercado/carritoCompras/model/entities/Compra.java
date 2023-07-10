@@ -29,6 +29,9 @@ public class Compra {
     @JoinColumn(name = "cliente")
     private Cliente cliente;
 
+    @Column(name = "detalle")
+    private String detalle;
+
     @ManyToMany(fetch = FetchType.LAZY,
                 cascade = CascadeType.ALL)//https://docs.oracle.com/javaee/6/api/javax/persistence/ManyToMany.html
     @JoinTable(name="productos_comprados")

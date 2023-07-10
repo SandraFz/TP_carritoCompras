@@ -33,6 +33,7 @@ public class Referencia {
     private Carrito carrito;
 }
 /*Métodos:
-* Sumar unidad/actualizar stock;
-* Restar unidad/actualizar stock;
+* Crear nueva referencia/asociar a carrito;
+* Sumar unidad/actualizar sutotal/actualizar stock;
+* Restar unidad/actualizar subtotal/actualizar stock;
 * */
