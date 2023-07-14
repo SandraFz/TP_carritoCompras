@@ -18,7 +18,7 @@ public class Referencia {
     private Long id;
 
     @Column(name="cantidad")
-    private Integer cant;
+    private Integer cantidad;
 
     /*@OneToOne(cascade = CascadeType.ALL,
     orphanRemoval = true)
@@ -37,28 +37,6 @@ public class Referencia {
     @ManyToOne
     @JoinColumn(name="carrito")
     private Carrito carrito;
-
-    /*public double subtCalc() {
-        this.subt = this.cant * this.producto.getPrecio();
-        return this.subt;
-    }*/
-
-    public Referencia(Long id, Producto producto, Double subt, Carrito carrito) {
-        this.id = id;
-        this.cant = 1;
-        this.idProd = idProd;
-        this.subt = subt;
-        this.carrito = carrito;
-    }
-
-    /*public void setCant(int u){
-        this.cant = 1;
-    }
-
-    public void setSubt(Integer cant) {
-        this.cant = 1;
-        this.subt = (double) (this.cant * this.producto.getPrecio());
-    }*/
 }
 /*Métodos:
 * Crear nueva referencia/asociar a carrito;

@@ -1,5 +1,6 @@
 package com.supermercado.carritoCompras.service.implementations;
 
+import com.supermercado.carritoCompras.TpFinalCarritoComprasApplication;
 import com.supermercado.carritoCompras.model.DTO.ReferenciaDTO;
 import com.supermercado.carritoCompras.model.entities.Carrito;
 import com.supermercado.carritoCompras.model.entities.Cliente;
@@ -15,6 +16,7 @@ import com.supermercado.carritoCompras.service.repositories.IProductoRepository;
 import com.supermercado.carritoCompras.service.repositories.IReferenciaRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringApplication;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -44,10 +46,12 @@ public class ReferenciaServImpl implements IReferenciaService {
     public IProductoService servProd;
 
     @Override
-    @Transactional
+    //@Transactional
     public ReferenciaDTO newReferencia(ReferenciaDTO dto, Long idCli, Long idProd) {
         //Agrega una referencia y lo asocia al carrito segúnel id del cliente.
         Referencia ref = mapRef.dtoToReferencia(dto);
+        ref.setSubt((double) (dto.getCant() * repoProd.getReferenceById(idProd).getPrecio()));
+        ref.setIdProd(String.valueOf(idProd));
         repoRef.save(ref);
 
         //Relacionar la referencia al Carrito.
@@ -56,9 +60,9 @@ public class ReferenciaServImpl implements IReferenciaService {
         repoCar.saveAndFlush(car);
 
         /*Actualizar stock*/
-        Producto prod = repoProd.getReferenceById(idProd);
-        servProd.restarStock(ref.getCant(), idProd);
-        repoProd.saveAndFlush(prod);
+        /*Producto prod = repoProd.getReferenceById(idProd);
+        servProd.restarStock(dto.getCant(), idProd);
+        repoProd.saveAndFlush(prod);*/
 
         ReferenciaDTO newRefDto = mapRef.refToDto(ref);
 
@@ -117,8 +121,8 @@ public class ReferenciaServImpl implements IReferenciaService {
 
         Referencia ref =  repoRef.getReferenceById(id);
 
-        ref.setCant(refDto.getCant());
-        ref.setCant(refDto.getCant());
+        ref.setCantidad(refDto.getCant());
+        ref.setCantidad(refDto.getCant());
         ref.setIdProd(refDto.getIdProd());
         //ref.setSubt(refDto.getSubt());
         repoRef.saveAndFlush(ref);
@@ -138,14 +142,14 @@ public class ReferenciaServImpl implements IReferenciaService {
 
         Referencia ref = repoRef.getReferenceById(idRef);
 
-        ref.setCant(ref.getCant() + u);
+        ref.setCantidad(ref.getCantidad() + u);
         repoRef.saveAndFlush(ref);
 
         Long idProd = Long.valueOf(ref.getIdProd());
         servProd.restarStock(u, idProd);
         //repoProd.saveAndFlush(prod);
 
-        return ref.getCant();
+        return ref.getCantidad();
     }
 
     @Override
@@ -154,13 +158,19 @@ public class ReferenciaServImpl implements IReferenciaService {
 
         Referencia ref = repoRef.getReferenceById(idRef);
 
-        ref.setCant(ref.getCant() - u);
+        ref.setCantidad(ref.getCantidad() - u);
         repoRef.saveAndFlush(ref);
 
         Long idProd = Long.valueOf(ref.getIdProd());
         servProd.sumarStock(u, idProd);
         //repoProd.saveAndFlush(prod);
 
-        return ref.getCant();
+        return ref.getCantidad();
     }
+
+    public static void main(String[] args) {
+
+
+    }
+
 }

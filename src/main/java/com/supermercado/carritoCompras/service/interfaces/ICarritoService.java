@@ -16,7 +16,7 @@ public interface ICarritoService {
 
     public List<Carrito> allCar();
 
-    public ReferenciaDTO agregarReferencia (ReferenciaDTO refDto, Long id);
+    public ReferenciaDTO agregarReferencia (ReferenciaDTO refDto, Long idCli, Long idProd);
 
     public void vaciarCarrito(Long id);
 

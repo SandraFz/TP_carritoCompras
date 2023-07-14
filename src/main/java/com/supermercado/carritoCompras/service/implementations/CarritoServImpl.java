@@ -96,25 +96,29 @@ public class CarritoServImpl implements ICarritoService {
 
     @Override
     @Transactional
-    public ReferenciaDTO agregarReferencia(ReferenciaDTO refDto, Long id){//Agrega una referencia.
+    public ReferenciaDTO agregarReferencia(ReferenciaDTO refDto, Long idCli, Long idProd){//Agrega una referencia.
 
-        List<Referencia> refs = new ArrayList<>();
+        Carrito car = repoCli.getReferenceById(idCli).getCarrito();
+
+        //List<Referencia> refs = repoCli.getReferenceById(idCli).getCarrito().getReferencias();
 
         //int stock = refDto.getProducto().getStock();
 
-        /*if(refDto.getProducto().getStock() <= 0){
+        if(repoProd.getReferenceById(idProd).getStock() <= 0){
             throw new RuntimeException("Sin stock");
-        }*/
-        ReferenciaDTO ref = null; //servRef.newReferencia(id); CORREGIR
+        } else {
+            ReferenciaDTO ref = servRef.newReferencia(refDto, idCli, idProd);
 
-        refs.add(mapRef.dtoToReferencia(ref));
-        double total = 0;
+            car.getReferencias().add(mapRef.dtoToReferencia(refDto));
+            double total = car.getTotal();
 
-        for(Referencia elem: refs){
-            total += elem.getSubt();
+            for (Referencia elem : car.getReferencias()) {
+                total += elem.getSubt();
+            }
+
+            return ref;
         }
 
-        return ref;
     }
 
     @Override
@@ -125,7 +129,7 @@ public class CarritoServImpl implements ICarritoService {
 
         for(Referencia ref : car.getReferencias()){
 
-        int cant = ref.getCant();
+        int cant = ref.getCantidad();
         Producto prod = repoProd.getReferenceById(Long.valueOf(ref.getIdProd()));
         int stockInicial = prod.getStock();
         int stockFinal = stockInicial + cant;

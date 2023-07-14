@@ -12,9 +12,9 @@ public class ReferenciaMapper {
         Referencia ref = new Referencia();
 
         ref.setId(refDto.getId());
-        ref.setCant(ref.getCant());
+        ref.setCantidad(refDto.getCant());
         ref.setIdProd(refDto.getIdProd());
-        //ref.setSubt(refDto.getSubt());
+        ref.setSubt(refDto.getSubt());
         ref.setCarrito(refDto.getCarrito());
 
         return ref;
@@ -25,9 +25,9 @@ public class ReferenciaMapper {
         ReferenciaDTO refDto = new ReferenciaDTO();
 
         refDto.setId(ref.getId());
-        refDto.setCant(ref.getCant());
+        refDto.setCant(ref.getCantidad());
         refDto.setIdProd(ref.getIdProd());
-        //refDto.setSubt(ref.getSubt());
+        refDto.setSubt(ref.getSubt());
         refDto.setCarrito(ref.getCarrito());
 
         return refDto;

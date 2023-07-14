@@ -13,10 +13,10 @@ public class CarritoController {
     @Autowired
     public ICarritoService serv;
 
-    @PostMapping("/newRef/{idCli}") //Crea una nueva referencia con los datos recibidos por parámetro y los vincula al cliente cuyo id también se pasa por parámetro.
-    public ResponseEntity<ReferenciaDTO> newReferencia(@RequestBody ReferenciaDTO dto,@PathVariable Long idCli){
+    @PutMapping("/newRef/{idCli}/{idProd}") //Crea una nueva referencia con los datos recibidos por parámetro y los vincula al cliente cuyo id también se pasa por parámetro.
+    public ResponseEntity<ReferenciaDTO> newReferencia(@RequestBody ReferenciaDTO dto,@PathVariable Long idCli, @PathVariable Long idProd){
 
-        ReferenciaDTO ref = serv.agregarReferencia(dto, idCli);
+        ReferenciaDTO ref = serv.agregarReferencia(dto, idCli, idProd);
 
         return ResponseEntity.ok().body(ref);
     }
