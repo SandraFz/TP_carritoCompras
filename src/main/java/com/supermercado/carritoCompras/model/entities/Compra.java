@@ -22,7 +22,7 @@ public class Compra {
     private Long id;
 
     @Column(name="fecha_compra")
-    private Date fecha;
+    private LocalDate fecha;
 
     @ManyToOne(cascade = CascadeType.ALL,
             fetch = FetchType.EAGER)//https://docs.oracle.com/javaee/6/api/javax/persistence/ManyToOne.html

@@ -10,17 +10,17 @@ public interface IProductoService {
 
     public ProductoDTO newProduct(ProductoDTO dto);
 
-    Producto findProducto(String name);
+    public List<Producto> findProducto(String name);
 
     public List<Producto> findAllProducto();
 
-    public List<Producto> finByGenero(String gen);
+    public List<Producto> findByGenero(String gen);
 
     public ProductoDTO editProducto(ProductoDTO prodDto, Long id);
 
-    public ProductoDTO sumarStock(int u);
+    public ProductoDTO sumarStock(int u, Long idProd);
 
-    public ProductoDTO restarStock(int u);
+    public ProductoDTO restarStock(int u, Long idProd);
 
     public void deleteProducto(Long id);
 }

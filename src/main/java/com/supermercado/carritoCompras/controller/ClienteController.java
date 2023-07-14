@@ -20,15 +20,13 @@ public class ClienteController {
     public ResponseEntity<ClienteDTO> newCliente(@RequestBody ClienteDTO cliDto){
 
         ClienteDTO cli = serv.newCliente(cliDto);
-        //CarritoDTO car = serCar.newCarrito();
         return ResponseEntity.ok().body(cli);
     }
 
     @GetMapping("/all")
     public ResponseEntity<List<ClienteDTO>> allClient(){
 
-        List clientes = new ArrayList<ClienteDTO>();
-        clientes = serv.allClientes();
+        List clientes = serv.allClientes();
         return ResponseEntity.ok().body(clientes);
     }
 
@@ -54,7 +52,7 @@ public class ClienteController {
         return ResponseEntity.ok().body(cli);
     }
 
-    @DeleteMapping("/delet/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteCliente(@PathVariable Long id){
 
         serv.deleteCliente(id);

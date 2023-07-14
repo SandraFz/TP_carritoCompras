@@ -12,18 +12,15 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ProductoDTO {
 
-    @NotNull
     private Long id;
 
-    @NotNull
-    private Genero genero;
+    private String genero;
 
-    @NotNull
-    private RinioneraFlia familia;
+    private String familia;
 
-    @NotNull
-    private String denomination;
+    private String denominacion;
 
-    @NotNull
     private int precio;
+
+    private int stock;
 }

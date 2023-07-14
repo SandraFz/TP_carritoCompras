@@ -7,13 +7,19 @@ import java.util.List;
 
 public interface IReferenciaService {
 
-    public ReferenciaDTO newReferencia(ReferenciaDTO refDto, Long id);
+    public ReferenciaDTO newReferencia(ReferenciaDTO dto, Long idCli, Long idProd);
+
+    public ReferenciaDTO newReferenciaB(ReferenciaDTO refDto, Long id);
 
     //List<Referencia> allRef();
 
-    List<Referencia> allRef(Long id);
+    public List<Referencia> allRef(Long id);
 
-    public int agregarUnidad(int u);
+    public void deleteRef(Long id);
 
-    public int restarUnidad(int u);
+    public ReferenciaDTO editRef(ReferenciaDTO refDto, Long id);
+
+    public int agregarUnidad(int u, Long id);
+
+    public int restarUnidad(int u, Long id);
 }

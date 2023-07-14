@@ -1,6 +1,7 @@
 package com.supermercado.carritoCompras.service.interfaces;
 
 import com.supermercado.carritoCompras.model.DTO.ClienteDTO;
+import com.supermercado.carritoCompras.model.entities.Cliente;
 
 import java.util.List;
 

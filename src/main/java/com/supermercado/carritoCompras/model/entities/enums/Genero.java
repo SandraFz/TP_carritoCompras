@@ -8,6 +8,15 @@ import lombok.NoArgsConstructor;
 @Table(name="generos")
 public enum Genero {
 
-    RINIONERA, MORRAL, BOLSO, MOCHILA, ACCESORIO;
+    RINIONERA(FliaRinio.class),
+    MORRAL(FliaMorral.class),
+    BOLSO(FliaBolso.class),
+    MOCHILA(FliaMochila.class),
+    ACCESORIO(FliaAccesorio.class);
 
+    private final Class<? extends Enum<?>> subEnumClass;
+
+    Genero(Class<? extends Enum<?>> subEnumClass) {
+        this.subEnumClass =  subEnumClass;
+    }
 }

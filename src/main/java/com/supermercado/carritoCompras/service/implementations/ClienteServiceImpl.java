@@ -1,13 +1,10 @@
 package com.supermercado.carritoCompras.service.implementations;
 
-import com.supermercado.carritoCompras.model.DTO.CarritoDTO;
 import com.supermercado.carritoCompras.model.DTO.ClienteDTO;
-import com.supermercado.carritoCompras.model.entities.Carrito;
 import com.supermercado.carritoCompras.model.entities.Cliente;
 import com.supermercado.carritoCompras.model.mapper.CarritoMapper;
 import com.supermercado.carritoCompras.model.mapper.ClienteMapper;
 import com.supermercado.carritoCompras.service.interfaces.IClienteService;
-import com.supermercado.carritoCompras.service.repositories.ICarritoRepository;
 import com.supermercado.carritoCompras.service.repositories.IClienteRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +28,6 @@ public class ClienteServiceImpl implements IClienteService{
     @Autowired
     public CarritoMapper carMapper;
 
-
     @Override
     @Transactional
     public ClienteDTO newCliente(ClienteDTO cliDto) {
@@ -44,12 +40,15 @@ public class ClienteServiceImpl implements IClienteService{
         cli = mapper.dtoToClientRequest(cliDto);
         repo.save(cli);
 
-        /*Desde aquí inserto el código para crear automáticamente un carrito único por cliente*/
+        /*Desde aquí inserto el código para crear automáticamente un carrito y una lista de compras únicos por cliente*/
             Long idCli = cli.getId();
-            CarritoDTO carDto = carServ.crearCarrito(idCli);
+            carServ.crearCarrito(idCli);
+           // List<Compra> compras = new ArrayList<>();
+            //cli.getCompras()
+            //repo.saveAndFlush(cli);
 
-        ClienteDTO newCliDTo = mapper.clientToDtoResponse(cli);
-        return newCliDTo;}
+
+        return mapper.clientToDtoResponse(cli);}
     }
 
     @Override
@@ -67,9 +66,9 @@ public class ClienteServiceImpl implements IClienteService{
     @Override
     public ClienteDTO findById(Long id){
 
-        Cliente cli = repo.getById(id);
-        ClienteDTO cliDto = mapper.clientToDtoResponse(cli);
-        return cliDto;
+        Cliente cli = repo.getReferenceById(id);
+
+        return mapper.clientToDtoResponse(cli);
     }
 
     @Override
@@ -77,9 +76,8 @@ public class ClienteServiceImpl implements IClienteService{
 
         Cliente cli;
         cli = repo.findCliente(dni);
-        ClienteDTO cliDto = mapper.clientToDtoResponse(cli);
 
-        return cliDto;
+        return mapper.clientToDtoResponse(cli);
     }
 
     @Override
@@ -87,11 +85,12 @@ public class ClienteServiceImpl implements IClienteService{
     public ClienteDTO editCliente(ClienteDTO cliDto, String dni) {
 
         Cliente cli = mapper.dtoToClientRequest(findByDni(dni));
-        Cliente newCli = mapper.dtoToClientRequest(cliDto);
-        repo.saveAndFlush(newCli);
-        ClienteDTO newCliDto = mapper.clientToDtoResponse(newCli);
+        cli.setDni(cliDto.getDni());
+        cli.setNombre(cliDto.getNombre());
+        cli.setCarrito(cliDto.getCarrito());
+        repo.saveAndFlush(cli);
 
-        return newCliDto;
+        return mapper.clientToDtoResponse(cli);
     }
 
     @Override

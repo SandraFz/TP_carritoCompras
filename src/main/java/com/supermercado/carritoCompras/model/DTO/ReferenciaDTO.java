@@ -15,7 +15,7 @@ public class ReferenciaDTO {
 
     private Integer cant;
 
-    private Producto producto;
+    private String idProd;
 
     private double subt;
 

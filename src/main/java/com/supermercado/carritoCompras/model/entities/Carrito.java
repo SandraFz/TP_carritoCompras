@@ -19,8 +19,8 @@ public class Carrito {
     @Column(name="id")
     private Long id;
 
-    @OneToOne(mappedBy = "carrito")
-    private Cliente cliente;
+    /*@OneToOne(mappedBy = "carrito")
+    private Cliente cliente;*/
 
     /*@ManyToOne
     @JoinColumn(name = "referencias")

@@ -1,21 +1,20 @@
 package com.supermercado.carritoCompras.service.implementations;
 
 import com.supermercado.carritoCompras.model.DTO.CarritoDTO;
+import com.supermercado.carritoCompras.model.DTO.CompraDTO;
 import com.supermercado.carritoCompras.model.DTO.ReferenciaDTO;
-import com.supermercado.carritoCompras.model.entities.Carrito;
-import com.supermercado.carritoCompras.model.entities.Cliente;
-import com.supermercado.carritoCompras.model.entities.Referencia;
-import com.supermercado.carritoCompras.model.mapper.CarritoMapper;
-import com.supermercado.carritoCompras.model.mapper.ClienteMapper;
-import com.supermercado.carritoCompras.model.mapper.ReferenciaMapper;
+import com.supermercado.carritoCompras.model.entities.*;
+import com.supermercado.carritoCompras.model.mapper.*;
 import com.supermercado.carritoCompras.service.interfaces.ICarritoService;
 import com.supermercado.carritoCompras.service.repositories.ICarritoRepository;
 import com.supermercado.carritoCompras.service.repositories.IClienteRepository;
+import com.supermercado.carritoCompras.service.repositories.IProductoRepository;
 import com.supermercado.carritoCompras.service.repositories.IReferenciaRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,6 +33,8 @@ public class CarritoServImpl implements ICarritoService {
     @Autowired
     public ClienteMapper mapCli;
 
+    //@Autowired
+    //public ClienteServiceImpl servCli;
     @Autowired
     public ReferenciaServImpl servRef;
 
@@ -42,6 +43,21 @@ public class CarritoServImpl implements ICarritoService {
 
     @Autowired
     public ReferenciaMapper mapRef;
+
+    @Autowired
+    public IProductoRepository repoProd;
+
+    @Autowired
+    public ProductoMapper mapProd;
+
+    @Autowired
+    public ProductoServImpl servProd;
+
+    @Autowired
+    public CompraServImpl servCom;
+
+    @Autowired
+    public CompraMapper mapCom;
 
     @Override
     @Transactional
@@ -61,7 +77,7 @@ public class CarritoServImpl implements ICarritoService {
     }
 
     @Override
-    public CarritoDTO findCarById(Long id) {//Busca un carrito según el id.
+    public CarritoDTO findCarById(Long id) {//Busca un carrito según su propio id.
 
         Carrito car = repoCar.getById(id);
         CarritoDTO carDto = mapCar.carToDtoResponse(car);
@@ -79,27 +95,54 @@ public class CarritoServImpl implements ICarritoService {
     }
 
     @Override
+    @Transactional
     public ReferenciaDTO agregarReferencia(ReferenciaDTO refDto, Long id){//Agrega una referencia.
 
-        ReferenciaDTO ref = servRef.newReferencia(refDto, id);
+        List<Referencia> refs = new ArrayList<>();
+
+        //int stock = refDto.getProducto().getStock();
+
+        /*if(refDto.getProducto().getStock() <= 0){
+            throw new RuntimeException("Sin stock");
+        }*/
+        ReferenciaDTO ref = null; //servRef.newReferencia(id); CORREGIR
+
+        refs.add(mapRef.dtoToReferencia(ref));
+        double total = 0;
+
+        for(Referencia elem: refs){
+            total += elem.getSubt();
+        }
 
         return ref;
     }
 
     @Override
+    @Transactional
     public void vaciarCarrito(Long id){//Elimina todas las referencias existentes y actualiza el stock devolviendo las unidades.
 
         Carrito car = repoCar.getReferenceById(id);
 
-        if(!repoCar.contieneRef()){
+        for(Referencia ref : car.getReferencias()){
+
+        int cant = ref.getCant();
+        Producto prod = repoProd.getReferenceById(Long.valueOf(ref.getIdProd()));
+        int stockInicial = prod.getStock();
+        int stockFinal = stockInicial + cant;
+        prod.setStock(stockFinal);
+
+        repoProd.saveAndFlush(prod);
+        }
+
+        if(car.getReferencias().isEmpty()){
             throw new RuntimeException("No hay referencias que borrar");
         } else {
             car.getReferencias().clear();
-            /*Actualizar stock*/
         }
     }
 
     @Override
+    @Transactional
     public String comprar(Long id){//Convierte la lista de referencias en un string y vacía el carrito.
 
         List<String> compras = new ArrayList<>();
@@ -111,7 +154,21 @@ public class CarritoServImpl implements ICarritoService {
 
         String detalle = String.join("/n", compras);
 
+        Carrito car = repoCli.getReferenceById(id).getCarrito();
+        car.getReferencias().clear();
+
         /*Agregar a lista de Compras*/
+        Cliente cli = repoCli.getReferenceById(id);
+        Compra com = new Compra();
+        com.setFecha(LocalDate.now());
+        com.setCliente(cli);
+        com.setDetalle(detalle);
+        CompraDTO comDto = mapCom.comToDtoResponse(com);
+
+        Compra newCom = mapCom.dtoToCompResquest(servCom.newCompra(comDto, id));
+        cli.getCompras().add(newCom);
+
         return detalle;
     }
+
 }

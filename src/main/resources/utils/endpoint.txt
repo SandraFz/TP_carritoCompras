@@ -1,0 +1,106 @@
+CLIENTE
+http://localhost:8080/cliente
+
+nuevo cliente
+/edit/{dni}
+
+listar clientes
+/all
+
+buscar por id
+/findById/{id}
+
+buscar por dni
+/findDni/{dni}
+
+editar
+/edit/{dni}
+
+eliminar
+/delete/{id}
+
+======================================
+
+CARRITO
+http://localhost:8080/carrito
+
+agregar referencia
+/newRef
+
+vaciar carrito
+/vaciar
+
+comprar referencias en carrito
+/comprar
+
+======================================
+
+REFERENCIA
+http://localhost:8080/ref
+
+listar referencias según cliente
+/all
+
+editar referencia
+/edit
+
+eliminar referencia
+/delete
+
+sumar unidad
+/sumarU
+
+restar unidad
+/restarU
+
+======================================
+
+PRODUCTO
+http://localhost:8080/prod
+
+crear nuevo producto
+/new
+
+buscar por nombre
+/findByName
+
+listar todos los productos
+/all
+
+buscar por género
+/gen
+
+sumar stock
+/sumar
+
+restar stock
+/restar
+
+eliminar
+/delete
+
+======================================
+
+COMPRA
+http://localhost:8080/compras
+
+nueva compra
+/new
+
+buscar por id
+/findById
+
+listar compras según cliente
+/allByCliente
+
+listar todas las compras
+/all
+
+listar por fecha
+/findByFecha
+
+listar según rango de fechas
+/findBetween
+
+
+

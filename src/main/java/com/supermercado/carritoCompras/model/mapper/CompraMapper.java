@@ -14,6 +14,7 @@ public class CompraMapper {
         com.setId(comDto.getId());
         com.setFecha(comDto.getFecha());
         com.setCliente(comDto.getCliente());
+        com.setDetalle(comDto.getDetalle());
        // com.setCarrito(comDto.getCarrito());
         //com.setProductos(comDto.getProductos());
 
@@ -27,6 +28,7 @@ public class CompraMapper {
         comDto.setId(com.getId());
         comDto.setFecha(com.getFecha());
         comDto.setCliente(com.getCliente());
+        comDto.setDetalle(com.getDetalle());
         //comDto.setCarrito(com.getCarrito());
         //comDto.setProductos(com.getProductos());
 
